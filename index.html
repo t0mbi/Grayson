@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grayson's Roblox Universe - Ultimate Curriculum Conquest!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+    <style>
+        :root {
+            --font-primary: 'Press Start 2P', cursive;
+            --font-secondary: 'Inter', sans-serif;
+            
+            /* Enhanced Roblox-inspired Palette */
+            --color-roblox-bg-dark: #1a1d21;
+            --color-roblox-bg-medium: #2C2F33;
+            --color-roblox-container-bg: #36393F;
+            --color-roblox-text-light: #FFFFFF;
+            --color-roblox-text-secondary: #B9BBBE;
+            
+            --color-roblox-blue: #00A2FF;
+            --color-roblox-green: #00B06F;
+            --color-roblox-yellow: #FFCD00;
+            --color-roblox-red: #F04747;
+            --color-roblox-purple: #7289DA;
+            --color-roblox-orange: #F47B20;
+            --color-roblox-cyan: #00C2D1;
+            --color-roblox-magenta: #E91E63;
+            --color-roblox-lime: #A4E820;
+            --color-roblox-teal: #1ABC9C;
+            --color-roblox-gold: #FFD700;
+            --color-roblox-pink: #FF69B4;
+            
+            --color-border: #4F545C;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background: linear-gradient(135deg, var(--color-roblox-bg-dark) 0%, var(--color-roblox-bg-medium) 50%, #1e2328 100%);
+            color: var(--color-roblox-text-light);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            margin: 0;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .page-container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .player-stats {
+            background: linear-gradient(145deg, var(--color-roblox-container-bg), #2a2d33);
+            border: 2px solid var(--color-border);
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .stat-item {
+            text-align: center;
+            font-family: var(--font-secondary);
+        }
+
+        .stat-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--color-roblox-yellow);
+        }
+
+        .stat-label {
+            font-size: 0.7rem;
+            color: var(--color-roblox-text-secondary);
+        }
+
+        .view-container .container-content {
+            background: linear-gradient(145deg, var(--color-roblox-container-bg), #2a2d33);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 0 0 2px var(--color-border), 0 8px 32px rgba(0,0,0,0.3);
+            text-align: center;
+            width: 100%;
+            margin-top: 1rem;
+            border: 2px solid var(--color-border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--color-roblox-blue), var(--color-roblox-purple), var(--color-roblox-cyan));
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        h1 {
+            color: var(--color-roblox-yellow);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            text-shadow: 2px 2px 4px #000000;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { text-shadow: 2px 2px 4px #000000; }
+            50% { text-shadow: 2px 2px 8px var(--color-roblox-yellow); }
+        }
+
+        .subtitle {
+            font-family: var(--font-secondary);
+            font-size: 1.1rem;
+            color: var(--color-roblox-text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        /* Grid layouts */
+        .item-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .item-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+
+        /* Enhanced cards */
+        .item-card {
+            background: linear-gradient(145deg, var(--color-roblox-bg-medium), #32363c);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 
+                inset 0 0 0 1px var(--color-border), 
+                5px 5px 15px rgba(0,0,0,0.3),
+                0 0 20px rgba(0,162,255,0.1);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid var(--color-border);
+            cursor: pointer;
+            min-height: 260px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .item-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 
+                inset 0 0 0 2px var(--color-roblox-yellow), 
+                8px 8px 25px rgba(0,0,0,0.4),
+                0 0 30px rgba(255,205,0,0.3);
+        }
+
+        .item-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 0 10px currentColor);
+        }
+
+        .item-card:hover .icon {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .item-card h2 {
+            font-size: 0.85rem;
+            color: var(--color-roblox-text-light);
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
+            text-align: center;
+        }
+
+        .item-card p.description {
+            font-family: var(--font-secondary);
+            font-size: 0.8rem;
+            color: var(--color-roblox-text-secondary);
+            text-align: center;
+            margin-bottom: 1rem;
+            flex-grow: 1;
+            line-height: 1.5;
+        }
+
+        /* Progress bars */
+        .progress-bar-container {
+            width: 90%;
+            background: linear-gradient(90deg, #202225, #1a1d21);
+            border-radius: 10px;
+            height: 24px;
+            margin-top: auto;
+            overflow: hidden;
+            position: relative;
+            border: 2px solid var(--color-border);
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .progress-bar-fill {
+            background: linear-gradient(90deg, var(--color-roblox-green), #00d084);
+            height: 100%;
+            border-radius: 8px;
+            transition: width 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .progress-bar-text {
+            font-family: var(--font-primary);
+            font-size: 0.6rem;
+            color: #000000;
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            line-height: 24px;
+            text-shadow: 1px 1px 2px var(--color-roblox-text-light);
+            font-weight: bold;
+            z-index: 2;
+        }
+
+        /* Buttons */
+        .nav-button, .reset-lesson-btn {
+            font-family: var(--font-primary);
+            font-size: 0.7rem;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(145deg, var(--color-roblox-blue), #0082cc);
+            color: var(--color-roblox-text-light);
+            border: 2px solid var(--color-border);
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 0.75rem 0.5rem;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            text-shadow: 1px 1px 2px #000000;
+        }
+
+        .reset-lesson-btn {
+            background: linear-gradient(145deg, var(--color-roblox-red), #d63447);
+            font-size: 0.6rem;
+            padding: 0.5rem 1rem;
+        }
+
+        .nav-button:hover, .reset-lesson-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+        }
+
+        /* Card color schemes */
+        .card-color-1 { border-left: 5px solid var(--color-roblox-blue); } .card-color-1 .icon { color: var(--color-roblox-blue); }
+        .card-color-2 { border-left: 5px solid var(--color-roblox-green); } .card-color-2 .icon { color: var(--color-roblox-green); }
+        .card-color-3 { border-left: 5px solid var(--color-roblox-yellow); } .card-color-3 .icon { color: var(--color-roblox-yellow); }
+        .card-color-4 { border-left: 5px solid var(--color-roblox-purple); } .card-color-4 .icon { color: var(--color-roblox-purple); }
+        .card-color-5 { border-left: 5px solid var(--color-roblox-orange); } .card-color-5 .icon { color: var(--color-roblox-orange); }
+        .card-color-6 { border-left: 5px solid var(--color-roblox-cyan); } .card-color-6 .icon { color: var(--color-roblox-cyan); }
+        .card-color-7 { border-left: 5px solid var(--color-roblox-magenta); } .card-color-7 .icon { color: var(--color-roblox-magenta); }
+        .card-color-8 { border-left: 5px solid var(--color-roblox-lime); } .card-color-8 .icon { color: var(--color-roblox-lime); }
+        .card-color-9 { border-left: 5px solid var(--color-roblox-teal); } .card-color-9 .icon { color: var(--color-roblox-teal); }
+        .card-color-10 { border-left: 5px solid var(--color-roblox-gold); } .card-color-10 .icon { color: var(--color-roblox-gold); }
+
+        /* Difficulty indicators */
+        .difficulty-indicator {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: var(--color-roblox-purple);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.5rem;
+            font-family: var(--font-secondary);
+        }
+
+        .difficulty-easy { background: var(--color-roblox-green); }
+        .difficulty-medium { background: var(--color-roblox-yellow); color: black; }
+        .difficulty-hard { background: var(--color-roblox-red); }
+
+        /* Activity page styles */
+        .back-button {
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            background: linear-gradient(145deg, var(--color-roblox-blue), #0082cc);
+            color: var(--color-roblox-text-light);
+            font-size: 1rem;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid var(--color-border);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .back-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+        }
+
+        .lesson-intro {
+            font-family: var(--font-secondary);
+            font-size: 0.95rem;
+            color: var(--color-roblox-text-light);
+            margin-bottom: 1.5rem;
+            text-align: left;
+            padding: 1rem;
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+            border-left: 4px solid var(--color-roblox-blue);
+        }
+
+        .visual-question {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            min-height: 2.5em;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            color: var(--color-roblox-blue);
+            text-shadow: 0 0 10px currentColor;
+        }
+
+        .question {
+            font-family: var(--font-primary);
+            font-size: 0.85rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            color: var(--color-roblox-text-light);
+            background: rgba(0,0,0,0.1);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--color-border);
+        }
+
+        input[type="number"] {
+            font-family: var(--font-primary);
+            font-size: 1.4rem;
+            padding: 0.75rem;
+            border: 3px solid var(--color-border);
+            border-radius: 8px;
+            width: 70%;
+            max-width: 200px;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            outline: none;
+            background: linear-gradient(145deg, var(--color-roblox-bg-medium), #2a2d33);
+            color: var(--color-roblox-text-light);
+            box-shadow: inset 2px 2px 4px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        input[type="number"]:focus {
+            border-color: var(--color-roblox-yellow);
+            box-shadow: 
+                inset 2px 2px 4px rgba(0,0,0,0.3), 
+                0 0 15px rgba(255,205,0,0.3);
+            transform: scale(1.05);
+        }
+
+        .feedback {
+            font-size: 1rem;
+            margin-top: 1.5rem;
+            min-height: 2em;
+            padding: 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+        }
+
+        .correct {
+            color: var(--color-roblox-green);
+            background: rgba(0,176,111,0.1);
+            border: 2px solid var(--color-roblox-green);
+            text-shadow: 1px 1px 2px #000;
+        }
+
+        .incorrect {
+            color: var(--color-roblox-red);
+            background: rgba(240,71,71,0.1);
+            border: 2px solid var(--color-roblox-red);
+            text-shadow: 1px 1px 2px #000;
+        }
+
+        .view-container {
+            display: none;
+            width: 100%;
+        }
+
+        .view-container.active {
+            display: block;
+        }
+
+        /* QR Code styling */
+        #qr-code-section {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: linear-gradient(145deg, var(--color-roblox-bg-medium), #2a2d33);
+            border: 2px solid var(--color-border);
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        #qr-code-section h3 {
+            font-size: 1rem;
+            color: var(--color-roblox-yellow);
+            margin-bottom: 1rem;
+            text-shadow: 1px 1px 2px #000000;
+        }
+
+        #qr-code-canvas {
+            background-color: white;
+            padding: 8px;
+            border-radius: 8px;
+            display: inline-block;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        #qr-code-section p {
+            font-family: var(--font-secondary);
+            font-size: 0.75rem;
+            color: var(--color-roblox-text-secondary);
+            margin-top: 1rem;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <!-- Player Stats Header -->
+        <div class="player-stats">
+            <div class="stat-item">
+                <div class="stat-value" id="total-score">0</div>
+                <div class="stat-label">Total Score</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="worlds-completed">0</div>
+                <div class="stat-label">Worlds Completed</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="current-streak">0</div>
+                <div class="stat-label">Current Streak</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="total-time">0m</div>
+                <div class="stat-label">Total Time</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value" id="achievements-count">0</div>
+                <div class="stat-label">Achievements</div>
+            </div>
+        </div>
+
+        <!-- Dashboard View -->
+        <div id="dashboard-view" class="view-container active">
+            <div class="container-content">
+                <h1>🎮 Grayson's Roblox Universe - Ultimate Curriculum Conquest! 🎮</h1>
+                <p class="subtitle">
+                    Welcome back, Legend! Choose your world and dominate the challenges! 🚀
+                </p>
+
+                <!-- Quick Stats Dashboard -->
+                <div style="display: flex; justify-content: center; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
+                    <div style="background: rgba(0,0,0,0.2); padding: 0.75rem; border-radius: 8px; min-width: 120px;">
+                        <div style="font-size: 1.2rem; color: var(--color-roblox-green);" id="dashboard-completion">0%</div>
+                        <div style="font-size: 0.7rem; color: var(--color-roblox-text-secondary);">Overall Progress</div>
+                    </div>
+                    <div style="background: rgba(0,0,0,0.2); padding: 0.75rem; border-radius: 8px; min-width: 120px;">
+                        <div style="font-size: 1.2rem; color: var(--color-roblox-blue);" id="dashboard-favorite">Math</div>
+                        <div style="font-size: 0.7rem; color: var(--color-roblox-text-secondary);">Favorite Subject</div>
+                    </div>
+                </div>
+
+                <div id="dashboard-grid" class="item-grid">
+                    <!-- World cards will be inserted here by JavaScript -->
+                </div>
+
+                <!-- Enhanced QR Code Section -->
+                <div id="qr-code-section">
+                    <h3>📱 Scan to Play on Another Device! 📱</h3>
+                    <canvas id="qr-code-canvas"></canvas>
+                    <p>Share this adventure! Scan the QR code to access your curriculum on any device.<br>
+                    Perfect for tablets, phones, or sharing with friends and family!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Week Submenu View -->
+        <div id="week-submenu-view" class="view-container">
+            <button class="back-button" onclick="showDashboardView()" aria-label="Back to Dashboard">
+                <i class="fas fa-map"></i>
+            </button>
+            <div class="container-content">
+                <h1 id="submenu-title" class="view-title">World Levels</h1>
+                <p id="submenu-intro" class="subtitle">Select your next challenge, Champion!</p>
+                <div id="lesson-grid" class="item-grid">
+                    <!-- Lesson cards will be inserted here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Activity Page -->
+        <div id="activity-page-wrapper" class="view-container">
+            <button class="back-button" id="back-to-submenu-button" aria-label="Back to Levels">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <div class="container-content">
+                <h1 id="week-main-title">Challenge Zone</h1>
+                <div id="week-theme-title" style="font-size: 1.2rem; color: var(--color-roblox-green); margin-bottom: 1rem;"></div>
+                <div id="lesson-intro" class="lesson-intro"></div>
+                <div id="visual-question" class="visual-question"></div>
+                <div id="question" class="question"></div>
+                <input type="number" id="answer" placeholder="Enter your answer...">
+                <button id="check-button" class="nav-button">🚀 Submit Answer!</button>
+                <div id="feedback" class="feedback"></div>
+                
+                <!-- Completion screen -->
+                <div id="completion-message" style="display: none;">
+                    <h2 id="completion-week-title" style="color: var(--color-roblox-green); margin-bottom: 1rem;">🎉 Level Mastered! 🎉</h2>
+                    <p id="completion-lesson-intro" class="lesson-intro">Outstanding work, Grayson! You've proven yourself as a true champion!</p>
+                    <button id="completion-back-button" class="nav-button">🗺️ Choose Next Level</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Constants
+        const questionsPerLesson = 20;
+        const lessonsPerTopic = 3;
+        const pointsPerCorrect = 100;
+
+        // Global variables
+        let currentTopic = 1;
+        let currentLesson = 1;
+        let questionIndex = 0;
+        let currentScore = 0;
+        let weeklyQuestions = [];
+        let correctAnswer;
+
+        // Topic content data
+        const topicContent = {
+            1: {
+                mainTitle: "Obby Runner's Math Dash", 
+                icon: "fas fa-person-running", 
+                colorClass: "card-color-1",
+                lessons: [
+                    { title: "Stud Multiplier Sprint", intro: "Collect studs in the obby, Grayson! Multiply to count your total haul." },
+                    { title: "Checkpoint Division Dash", intro: "You reached checkpoints! Divide your total time by checkpoints." },
+                    { title: "Obby Master Puzzles", intro: "Solve these tricky math puzzles to complete the ultimate obby!" }
+                ]
+            },
+            2: {
+                mainTitle: "Tycoon Empire Builder", 
+                icon: "fas fa-industry", 
+                colorClass: "card-color-2",
+                lessons: [
+                    { title: "Robux Earnings", intro: "Your tycoon is making Robux! Add up your earnings from different droppers." },
+                    { title: "Upgrade Costs", intro: "Buy new machines for your tycoon! Subtract the cost from your Robux balance." },
+                    { title: "Resource Round-Up", intro: "Estimate your cash or resources to plan your next big tycoon upgrade!" }
+                ]
+            },
+            3: {
+                mainTitle: "Avatar Creator's Studio", 
+                icon: "fas fa-palette", 
+                colorClass: "card-color-3",
+                lessons: [
+                    { title: "Outfit Fractions", intro: "What fraction of your avatar's new outfit is using a cool hat, Grayson?" },
+                    { title: "Mixing Accessories", intro: "Combine fractional parts of different accessory sets to create a unique look!" },
+                    { title: "Rarest Item Hunt", intro: "Compare the rarity (fractions) of items. Which one is more unique?" }
+                ]
+            },
+            4: {
+                mainTitle: "Game Dev Workshop", 
+                icon: "fas fa-cogs", 
+                colorClass: "card-color-4",
+                lessons: [
+                    { title: "Scripting Blocks (Sides)", intro: "How many sides do these basic building parts in your game script have?" },
+                    { title: "Map Border (Perimeter)", intro: "Calculate the perimeter of your new game map to set up the boundaries." },
+                    { title: "Plot Size (Area)", intro: "Find the area of a player's plot in your building game." }
+                ]
+            },
+            5: {
+                mainTitle: "Word Executor's Arena", 
+                icon: "fas fa-spell-check", 
+                colorClass: "card-color-5",
+                lessons: [
+                    { title: "Sentence Structure Blox", intro: "Game commands need clear structure! Identify the key parts in sentences." },
+                    { title: "Punctuation & Text Types", intro: "Understand game chat and info panels! What's the purpose of this message?" },
+                    { title: "Figurative Language Hunt", intro: "Game stories use cool language! What does this phrase *really* mean?" }
+                ]
+            },
+            6: {
+                mainTitle: "HASS Quest: Time & Place", 
+                icon: "fas fa-globe-americas", 
+                colorClass: "card-color-6",
+                lessons: [
+                    { title: "Mapping Ancient Robloxia", intro: "Explore old maps of Robloxia. Use directions and understand land connections." },
+                    { title: "Explorer's Voyage Calculations", intro: "Follow famous Roblox explorers. Calculate voyage durations and discovery dates." },
+                    { title: "Sustainable Server Management", intro: "Manage resources for your game server to keep it running for all players!" }
+                ]
+            },
+            7: {
+                mainTitle: "Tech Creators' Lab", 
+                icon: "fas fa-laptop-code", 
+                colorClass: "card-color-7",
+                lessons: [
+                    { title: "Basic Algorithm Builder", intro: "Design simple scripts for your Roblox game. What's the correct order?" },
+                    { title: "Data & Digital Systems", intro: "How do games store info like scores? Explore simple data." },
+                    { title: "Design & Materials Challenge", intro: "Choose the best materials for your Roblox builds based on their properties." }
+                ]
+            },
+            8: {
+                mainTitle: "Science Lab Escape!", 
+                icon: "fas fa-atom", 
+                colorClass: "card-color-8",
+                lessons: [
+                    { title: "Life Cycle Labyrinth", intro: "Your Roblox pet blobfish just laid eggs! How many stages in its life cycle?" },
+                    { title: "Material Meltdown", intro: "You have a block of ice in your game. If it melts, it becomes water. Is this reversible?" },
+                    { title: "Force & Earth Shapers", intro: "A giant fan pushes your avatar in an obby. Is this a push or a pull force?" }
+                ]
+            },
+            9: {
+                mainTitle: "Health & Movement Obby Run!", 
+                icon: "fas fa-heartbeat", 
+                colorClass: "card-color-9",
+                lessons: [
+                    { title: "Healthy Habits Hub", intro: "To keep your avatar's energy high for an obby, which is a better snack?" },
+                    { title: "Epic Movement Trials", intro: "To cross a wide gap in an obby, you need to perform a long jump. This requires skills!" },
+                    { title: "Team Tactics & Fair Play Arena", intro: "In a team game, if your team has 4 players and the other has 3, is it fair?" }
+                ]
+            },
+            10: {
+                mainTitle: "Creative Canvas Studio!", 
+                icon: "fas fa-paint-brush", 
+                colorClass: "card-color-10",
+                lessons: [
+                    { title: "Elements of Art Blox", intro: "Look at this Roblox shirt design! How many blue shapes are there?" },
+                    { title: "Art Tools & Techniques Tycoon", intro: "To make a pixel art avatar, which tool is best?" },
+                    { title: "Masterpiece Meaning Quest", intro: "A game scene shows a dark cave with one torch. What feeling does it create?" }
+                ]
+            }
+        };
+
+        // Question generators
+        const questionGenerators = {
+            'multiplication': () => {
+                const n1 = getRandomInt(2, 12);
+                const n2 = getRandomInt(5, 25);
+                return { 
+                    text: `Grayson collects ${n1} stacks of studs. Each stack has ${n2} studs. Total studs?`, 
+                    visual: `🧱 ${n1} × ${n2}`, 
+                    answer: n1 * n2 
+                };
+            },
+            'division': () => {
+                const divisor = getRandomInt(2, 12);
+                const quotient = getRandomInt(5, 20);
+                const dividend = divisor * quotient;
+                return { 
+                    text: `You have ${dividend} Robux to share among ${divisor} friends for a VIP server. Robux per friend?`, 
+                    visual: `R$ ${dividend} ÷ ${divisor}`, 
+                    answer: quotient 
+                };
+            },
+            'addition': () => {
+                const n1 = getRandomInt(100, 999);
+                const n2 = getRandomInt(100, 999);
+                return { 
+                    text: `Your tycoon made ${n1} cash. You got a bonus of ${n2} cash. Total cash?`, 
+                    visual: `💸 ${n1} + ${n2}`, 
+                    answer: n1 + n2 
+                };
+            },
+            'subtraction': () => {
+                const n1 = getRandomInt(500, 2000);
+                const n2 = getRandomInt(100, n1 - 50);
+                return { 
+                    text: `You had ${n1} health. A boss hit you for ${n2} damage. Health left?`, 
+                    visual: `❤️ ${n1} - ${n2}`, 
+                    answer: n1 - n2 
+                };
+            },
+            'fractions': () => {
+                const den = [4, 6, 8, 10][getRandomInt(0, 3)];
+                const num = getRandomInt(1, den - 1);
+                let visual = 'Potion Level: ';
+                for(let i = 0; i < den; i++) {
+                    visual += (i < num) ? '🧪' : '▫️';
+                }
+                return { 
+                    text: `Your potion bottle is ${num} out of ${den} parts full. What's the TOP number of the fraction?`, 
+                    visual: visual, 
+                    answer: num 
+                };
+            },
+            'shapes': () => {
+                const shapes = [
+                    {name: 'square block', sides: 4, visual: '🧱'},
+                    {name: 'triangle wedge', sides: 3, visual: '◤'},
+                    {name: 'pentagon shield', sides: 5, visual: '🛡️'}
+                ];
+                const shape = shapes[getRandomInt(0, shapes.length - 1)];
+                return { 
+                    text: `How many sides does this Roblox ${shape.name} have?`, 
+                    visual: `<span style="font-size:2.5rem">${shape.visual}</span>`, 
+                    answer: shape.sides 
+                };
+            },
+            'word_types': () => {
+                const examples = [
+                    { sentence: "Grayson quickly built a cool fort.", target: "quickly", type: "adverb", answer: 2 },
+                    { sentence: "The red lava flowed slowly down.", target: "red", type: "adjective", answer: 2 },
+                    { sentence: "A mysterious portal appeared near the exit.", target: "portal", type: "noun", answer: 3 }
+                ];
+                const ex = examples[getRandomInt(0, examples.length - 1)];
+                const words = ex.sentence.split(' ');
+                const targetIndex = words.findIndex(word => word.includes(ex.target.split(' ')[0])) + 1;
+                return {
+                    text: `In "${ex.sentence}" which word number is the ${ex.type}?`,
+                    visual: `📝 "${ex.sentence}"`,
+                    answer: targetIndex
+                };
+            },
+            'directions': () => {
+                const directions = ["North", "South", "East", "West"];
+                const correctDir = directions[getRandomInt(0, 3)];
+                return {
+                    text: `On your Roblox game map, the treasure is to the ${correctDir}. Which direction is ${correctDir}?`,
+                    visual: `🧭 Treasure → ${correctDir}`,
+                    answer: directions.indexOf(correctDir) + 1
+                };
+            },
+            'science': () => {
+                const questions = [
+                    { q: "How many stages: Egg → Larva → Adult?", a: 3, v: "🧬" },
+                    { q: "Ice melts to water. Is this reversible? (1=Yes, 0=No)", a: 1, v: "🧊→💧" },
+                    { q: "Fan pushes avatar forward. Push(1) or Pull(2)?", a: 1, v: "💨" }
+                ];
+                const q = questions[getRandomInt(0, questions.length - 1)];
+                return { text: q.q, visual: q.v, answer: q.a };
+            },
+            'health': () => {
+                const questions = [
+                    { q: "Better for energy: Energy Drink(1) or Apple(2)?", a: 2, v: "🍎" },
+                    { q: "After tough game: Rest(1) or Play More(2)?", a: 1, v: "🛌" },
+                    { q: "Good teamwork: Solo Glory(1) or Team Communication(2)?", a: 2, v: "🤝" }
+                ];
+                const q = questions[getRandomInt(0, questions.length - 1)];
+                return { text: q.q, visual: q.v, answer: q.a };
+            },
+            'arts': () => {
+                const patterns = ['🟥🟦🟥🟦🟥', '🌲🌲🌳🌲🌲🌳🌲', '⬜⬛⬛⬜⬛⬛⬜'];
+                const pattern = patterns[getRandomInt(0, patterns.length - 1)];
+                const blueCount = (pattern.match(/🟦/g) || []).length;
+                const treeCount = (pattern.match(/🌳/g) || []).length;
+                const blackCount = (pattern.match(/⬛/g) || []).length;
+                const count = blueCount || treeCount || blackCount || 2;
+                return {
+                    text: `Count the special elements in: ${pattern}`,
+                    visual: `🎨 ${pattern}`,
+                    answer: count
+                };
+            }
+        };
+
+        // Utility functions
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function shuffleArray(array) {
+            const newArray = [...array];
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+
+        // Generate questions for a lesson
+        function generateLessonQuestions(topicId, lessonId) {
+            const questionTypes = {
+                1: ['multiplication', 'division', 'multiplication', 'division'], // Math
+                2: ['addition', 'subtraction', 'addition', 'subtraction'], // Numbers
+                3: ['fractions', 'fractions', 'fractions', 'fractions'], // Fractions
+                4: ['shapes', 'shapes', 'shapes', 'shapes'], // Geometry
+                5: ['word_types', 'word_types', 'word_types', 'word_types'], // English
+                6: ['directions', 'directions', 'directions', 'directions'], // HASS
+                7: ['multiplication', 'addition', 'subtraction', 'fractions'], // Tech (mixed)
+                8: ['science', 'science', 'science', 'science'], // Science
+                9: ['health', 'health', 'health', 'health'], // HPE
+                10: ['arts', 'arts', 'arts', 'arts'] // Arts
+            };
+
+            const types = questionTypes[topicId] || ['multiplication', 'addition', 'subtraction', 'fractions'];
+            const questions = [];
+            
+            for (let i = 0; i < questionsPerLesson; i++) {
+                const questionType = types[i % types.length];
+                if (questionGenerators[questionType]) {
+                    questions.push(questionGenerators[questionType]());
+                } else {
+                    questions.push({
+                        text: "What is 2 + 2?",
+                        visual: "🔢 2 + 2",
+                        answer: 4
+                    });
+                }
+            }
+            
+            return shuffleArray(questions);
+        }
+
+        // DOM Management
+        function setActiveView(viewId) {
+            document.querySelectorAll('.view-container').forEach(v => {
+                v.classList.remove('active');
+            });
+            document.getElementById(viewId).classList.add('active');
+            window.scrollTo(0, 0);
+        }
+
+        function showDashboardView() {
+            populateDashboard();
+            setActiveView('dashboard-view');
+            generateQRCode();
+        }
+
+        function populateDashboard() {
+            const dashboardGrid = document.getElementById('dashboard-grid');
+            dashboardGrid.innerHTML = '';
+
+            Object.keys(topicContent).forEach((topicId, index) => {
+                const topic = topicContent[topicId];
+                const { overallProgress, lessonsStartedCount } = getTopicProgress(topicId);
+                const progressPercent = ((overallProgress / (lessonsPerTopic * questionsPerLesson)) * 100).toFixed(0);
+                const cardColorClass = topic.colorClass || `card-color-${(index % 10) + 1}`;
+
+                const card = document.createElement('div');
+                card.className = `item-card ${cardColorClass}`;
+                card.onclick = () => showWeekSubmenuView(topicId);
+
+                card.innerHTML = `
+                    <div class="difficulty-indicator difficulty-medium">World ${topicId}</div>
+                    <div class="icon"><i class="${topic.icon}"></i></div>
+                    <h2>World ${topicId}: ${topic.mainTitle}</h2>
+                    <p class="description">${lessonsStartedCount} of ${lessonsPerTopic} levels started. Click to explore!</p>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" style="width: ${progressPercent}%;"></div>
+                        <div class="progress-bar-text">${progressPercent}% Complete</div>
+                    </div>
+                `;
+                dashboardGrid.appendChild(card);
+            });
+        }
+
+        function showWeekSubmenuView(topicId) {
+            currentTopic = parseInt(topicId);
+            const topic = topicContent[currentTopic];
+            
+            document.getElementById('submenu-title').textContent = `World ${currentTopic}: ${topic.mainTitle}`;
+            document.getElementById('submenu-intro').textContent = `Choose your level and start your adventure!`;
+            
+            populateLessonGrid(currentTopic);
+            setActiveView('week-submenu-view');
+        }
+
+        function populateLessonGrid(topicId) {
+            const lessonGrid = document.getElementById('lesson-grid');
+            lessonGrid.innerHTML = '';
+            const topic = topicContent[topicId];
+            const baseCardColorClass = topic.colorClass || `card-color-${(parseInt(topicId) - 1 % 10) + 1}`;
+
+            topic.lessons.forEach((lesson, index) => {
+                const lessonId = index + 1;
+                const { questionsCompleted, completed } = getLessonProgress(topicId, lessonId);
+                const progressPercent = ((questionsCompleted / questionsPerLesson) * 100).toFixed(0);
+
+                const card = document.createElement('div');
+                card.onclick = () => showActivityView(topicId, lessonId);
+                card.className = `item-card ${baseCardColorClass}`;
+
+                const difficulty = lessonId === 1 ? 'easy' : lessonId === 2 ? 'medium' : 'hard';
+
+                card.innerHTML = `
+                    <div class="difficulty-indicator difficulty-${difficulty}">Level ${lessonId}</div>
+                    <div class="icon">
+                        <i class="${completed ? 'fas fa-trophy' : 'fas fa-door-open'}"></i>
+                    </div>
+                    <h2>Level ${lessonId}: ${lesson.title}</h2>
+                    <p class="description">${lesson.intro}</p>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" style="width: ${progressPercent}%; background-color: ${completed ? 'var(--color-roblox-green)' : 'var(--color-roblox-blue)'};"></div>
+                        <div class="progress-bar-text">${completed ? '✅ Complete!' : progressPercent + '%'} (${questionsCompleted}/${questionsPerLesson})</div>
+                    </div>
+                    <button class="reset-lesson-btn" onclick="event.stopPropagation(); resetLessonProgress(${topicId}, ${lessonId});">🔄 Reset Level</button>
+                `;
+                lessonGrid.appendChild(card);
+            });
+        }
+
+        function showActivityView(topicId, lessonId) {
+            currentTopic = parseInt(topicId);
+            currentLesson = parseInt(lessonId);
+            questionIndex = 0;
+            currentScore = 0;
+
+            const lessonProg = getLessonProgress(currentTopic, currentLesson);
+            questionIndex = lessonProg.completed ? 0 : lessonProg.questionsCompleted;
+
+            const topic = topicContent[currentTopic];
+            const lesson = topic.lessons[currentLesson - 1];
+
+            document.getElementById('week-main-title').textContent = `World ${currentTopic} / Level ${currentLesson}`;
+            weeklyQuestions = generateLessonQuestions(topicId, lessonId);
+
+            if (questionIndex >= questionsPerLesson && weeklyQuestions.length > 0) {
+                showLessonCompletionScreen(topic.mainTitle, lesson.title);
+            } else {
+                showLessonIntroScreen(lesson.title, lesson.intro);
+            }
+
+            setActiveView('activity-page-wrapper');
+        }
+
+        function showLessonIntroScreen(lessonTitle, introText) {
+            document.getElementById('week-theme-title').textContent = lessonTitle;
+            document.getElementById('lesson-intro').innerHTML = `
+                <h3 style="color: var(--color-roblox-yellow); margin-bottom: 1rem;">🎯 Mission Briefing</h3>
+                <p>${introText}</p>
+                <div style="margin: 1rem 0; padding: 1rem; background: rgba(0,0,0,0.2); border-radius: 8px;">
+                    <strong style="color: var(--color-roblox-green);">Goal:</strong> Answer ${questionsPerLesson} questions correctly!<br>
+                    <strong style="color: var(--color-roblox-blue);">Scoring:</strong> ${pointsPerCorrect} points per correct answer!
+                </div>
+                <button class="nav-button" onclick="startLessonActivities()">🚀 Start Mission!</button>
+            `;
+
+            // Hide game elements
+            document.getElementById('visual-question').style.display = 'none';
+            document.getElementById('question').style.display = 'none';
+            document.getElementById('answer').style.display = 'none';
+            document.getElementById('check-button').style.display = 'none';
+            document.getElementById('feedback').textContent = '';
+            document.getElementById('completion-message').style.display = 'none';
+        }
+
+        function startLessonActivities() {
+            document.getElementById('visual-question').style.display = 'flex';
+            document.getElementById('question').style.display = 'block';
+            document.getElementById('answer').style.display = 'block';
+            document.getElementById('check-button').style.display = 'block';
+            document.getElementById('lesson-intro').style.display = 'none';
+
+            displayQuestion();
+        }
+
+        function displayQuestion() {
+            if (!weeklyQuestions || questionIndex >= weeklyQuestions.length) {
+                showLessonCompletionScreen(
+                    topicContent[currentTopic].mainTitle,
+                    topicContent[currentTopic].lessons[currentLesson - 1].title
+                );
+                return;
+            }
+
+            const q = weeklyQuestions[questionIndex];
+            if (!q) {
+                console.error("Question undefined at index: ", questionIndex);
+                return;
+            }
+
+            document.getElementById('question').textContent = q.text;
+            document.getElementById('visual-question').innerHTML = q.visual;
+            correctAnswer = q.answer;
+            document.getElementById('answer').value = '';
+            document.getElementById('feedback').textContent = '';
+            document.getElementById('answer').focus();
+        }
+
+        function checkAnswer() {
+            const userAnswer = parseInt(document.getElementById('answer').value, 10);
+            const feedbackDiv = document.getElementById('feedback');
+
+            if (isNaN(userAnswer)) {
+                feedbackDiv.textContent = 'Enter a number, Gamer! 🎮';
+                feedbackDiv.className = 'feedback incorrect';
+                return;
+            }
+
+            if (userAnswer === correctAnswer) {
+                currentScore += pointsPerCorrect;
+                feedbackDiv.textContent = `🎯 Correct! +${pointsPerCorrect} points! Total: ${currentScore}`;
+                feedbackDiv.className = 'feedback correct';
+                
+                questionIndex++;
+                updateLessonProgress(currentTopic, currentLesson, questionIndex, questionIndex >= questionsPerLesson);
+                
+                setTimeout(() => {
+                    displayQuestion();
+                }, 2000);
+            } else {
+                feedbackDiv.textContent = `Not quite! The answer was ${correctAnswer}. Keep going, Champion! 💪`;
+                feedbackDiv.className = 'feedback incorrect';
+            }
+        }
+
+        function showLessonCompletionScreen(topicTitle, lessonTitle) {
+            const accuracy = Math.round((currentScore / (questionsPerLesson * pointsPerCorrect)) * 100);
+            
+            document.getElementById('completion-week-title').textContent = `🎉 Level ${currentLesson} Complete! 🎉`;
+            document.getElementById('completion-lesson-intro').innerHTML = `
+                <h3 style="color: var(--color-roblox-yellow);">Mission Complete!</h3>
+                <p>Outstanding work on ${topicTitle} - ${lessonTitle}!</p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin: 1rem 0; text-align: center;">
+                    <div style="background: rgba(0,0,0,0.2); padding: 1rem; border-radius: 8px;">
+                        <div style="font-size: 1.3rem; color: var(--color-roblox-green);">${currentScore}</div>
+                        <div style="font-size: 0.7rem;">Final Score</div>
+                    </div>
+                    <div style="background: rgba(0,0,0,0.2); padding: 1rem; border-radius: 8px;">
+                        <div style="font-size: 1.3rem; color: var(--color-roblox-blue);">${accuracy}%</div>
+                        <div style="font-size: 0.7rem;">Accuracy</div>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('completion-message').style.display = 'block';
+            
+            // Hide other elements
+            document.getElementById('visual-question').style.display = 'none';
+            document.getElementById('question').style.display = 'none';
+            document.getElementById('answer').style.display = 'none';
+            document.getElementById('check-button').style.display = 'none';
+            document.getElementById('lesson-intro').style.display = 'none';
+            document.getElementById('feedback').textContent = '';
+        }
+
+        // Progress Management - Works with localStorage when hosted normally
+        let gameProgressData = {};
+        const progressStorageKey = 'graysonRobloxUniverseProgress';
+        let storageAvailable = false;
+
+        // Check if localStorage is available
+        function checkStorageAvailability() {
+            try {
+                const test = 'storage_test';
+                localStorage.setItem(test, test);
+                localStorage.removeItem(test);
+                storageAvailable = true;
+                console.log("✅ Persistent storage available!");
+                return true;
+            } catch (e) {
+                storageAvailable = false;
+                console.log("⚠️ Using temporary storage (progress won't persist after refresh)");
+                return false;
+            }
+        }
+
+        function loadProgressData() {
+            if (storageAvailable) {
+                try {
+                    const data = localStorage.getItem(progressStorageKey);
+                    gameProgressData = data ? JSON.parse(data) : {};
+                    return gameProgressData;
+                } catch (e) {
+                    console.warn("Could not load progress data:", e);
+                    return {};
+                }
+            }
+            return gameProgressData;
+        }
+
+        function saveProgressData(data) {
+            gameProgressData = data;
+            if (storageAvailable) {
+                try {
+                    localStorage.setItem(progressStorageKey, JSON.stringify(data));
+                    console.log("✅ Progress saved persistently!");
+                } catch (e) {
+                    console.warn("Could not save progress data:", e);
+                }
+            } else {
+                console.log("📝 Progress saved to session memory");
+            }
+        }
+
+        function getLessonProgress(topicId, lessonId) {
+            const progress = loadProgressData();
+            return progress[topicId]?.lessons?.[lessonId] || { questionsCompleted: 0, completed: false };
+        }
+
+        function getTopicProgress(topicId) {
+            const progress = loadProgressData();
+            let overallProgress = 0;
+            let lessonsStartedCount = 0;
+
+            if (progress[topicId]?.lessons) {
+                for (let i = 1; i <= lessonsPerTopic; i++) {
+                    const lessonProg = progress[topicId].lessons[i];
+                    if (lessonProg) {
+                        overallProgress += lessonProg.questionsCompleted;
+                        if (lessonProg.questionsCompleted > 0) lessonsStartedCount++;
+                    }
+                }
+            }
+            return { overallProgress, lessonsStartedCount };
+        }
+
+        function updateLessonProgress(topicId, lessonId, qCompleted, isLessonDone) {
+            const progress = loadProgressData();
+            if (!progress[topicId]) progress[topicId] = { lessons: {} };
+            if (!progress[topicId].lessons[lessonId]) progress[topicId].lessons[lessonId] = { questionsCompleted: 0, completed: false };
+
+            progress[topicId].lessons[lessonId].questionsCompleted = Math.min(qCompleted, questionsPerLesson);
+            progress[topicId].lessons[lessonId].completed = isLessonDone || (qCompleted >= questionsPerLesson);
+            saveProgressData(progress);
+        }
+
+        function resetLessonProgress(topicId, lessonId) {
+            updateLessonProgress(topicId, lessonId, 0, false);
+            if (document.getElementById('week-submenu-view').classList.contains('active')) {
+                populateLessonGrid(topicId);
+            }
+        }
+
+        function generateQRCode() {
+            try {
+                const qrCanvas = document.getElementById('qr-code-canvas');
+                if (qrCanvas && typeof QRious !== 'undefined') {
+                    new QRious({
+                        element: qrCanvas,
+                        value: window.location.href,
+                        size: 140,
+                        level: 'M',
+                        foreground: 'black',
+                        background: 'white'
+                    });
+                } else {
+                    // Fallback if QRious doesn't load
+                    const qrSection = document.getElementById('qr-code-section');
+                    if (qrSection) {
+                        qrSection.innerHTML = `
+                            <h3>📱 Share This Game! 📱</h3>
+                            <div style="background: white; padding: 1rem; border-radius: 8px; color: black; font-family: var(--font-secondary);">
+                                <strong>Share URL:</strong><br>
+                                <span style="font-size: 0.8rem; word-break: break-all;">${window.location.href}</span>
+                            </div>
+                            <p>Copy and share this link to play on any device!</p>
+                        `;
+                    }
+                }
+            } catch (e) {
+                console.warn("QR code generation failed:", e);
+                // Provide text fallback
+                const qrSection = document.getElementById('qr-code-section');
+                if (qrSection) {
+                    qrSection.innerHTML = `
+                        <h3>📱 Share This Game! 📱</h3>
+                        <p style="color: var(--color-roblox-text-secondary);">
+                            Share this awesome curriculum game with friends and family!<br>
+                            Perfect for learning on any device! 🚀
+                        </p>
+                    `;
+                }
+            }
+        }
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check storage availability first
+            checkStorageAvailability();
+            
+            // Initialize the game
+            showDashboardView();
+
+            // Set up event listeners
+            const checkButton = document.getElementById('check-button');
+            const answerInput = document.getElementById('answer');
+            const backButton = document.getElementById('back-to-submenu-button');
+            const completionBackButton = document.getElementById('completion-back-button');
+
+            if (checkButton) {
+                checkButton.addEventListener('click', checkAnswer);
+            }
+
+            if (answerInput) {
+                answerInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        checkAnswer();
+                    }
+                });
+            }
+
+            if (backButton) {
+                backButton.onclick = () => showWeekSubmenuView(currentTopic);
+            }
+
+            if (completionBackButton) {
+                completionBackButton.onclick = () => showWeekSubmenuView(currentTopic);
+            }
+
+            // Show storage status to user
+            const storageStatus = storageAvailable ? 
+                '💾 Progress will be saved permanently!' : 
+                '⚠️ Progress temporary (will reset on refresh)';
+            
+            console.log('🎮 Grayson\'s Roblox Universe Loaded Successfully! 🚀');
+            console.log(storageStatus);
+            
+            // Add storage status to the page
+            setTimeout(() => {
+                const statsContainer = document.querySelector('.player-stats');
+                if (statsContainer && !storageAvailable) {
+                    const statusDiv = document.createElement('div');
+                    statusDiv.style.cssText = `
+                        position: fixed; 
+                        top: 10px; 
+                        right: 10px; 
+                        background: var(--color-roblox-orange); 
+                        color: white; 
+                        padding: 0.5rem; 
+                        border-radius: 4px; 
+                        font-size: 0.7rem; 
+                        z-index: 1000;
+                        font-family: var(--font-secondary);
+                    `;
+                    statusDiv.textContent = 'Temporary Mode - Host on GitHub for persistent saves!';
+                    document.body.appendChild(statusDiv);
+                    
+                    // Remove after 5 seconds
+                    setTimeout(() => statusDiv.remove(), 5000);
+                }
+            }, 2000);
+        });
+
+        // Make functions global for onclick handlers
+        window.showDashboardView = showDashboardView;
+        window.showWeekSubmenuView = showWeekSubmenuView;
+        window.showActivityView = showActivityView;
+        window.startLessonActivities = startLessonActivities;
+        window.checkAnswer = checkAnswer;
+        window.resetLessonProgress = resetLessonProgress;
+    </script>
+</body>
+</html>
